@@ -7,7 +7,7 @@ const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
 const readJsonFile = async (fileName: string) => {
-  const path = `./data/${fileName}.json`;
+  const path = `./workorders/${fileName}.json`;
   if(!fs.existsSync(path)){
     return {};
   }
@@ -17,9 +17,9 @@ const readJsonFile = async (fileName: string) => {
 
 const writeJsonFile = async (fileName: string, data: any) => {
   const dataStr = JSON.stringify(data);  
-  const filePath = `./data/${fileName}.json`;
+  const filePath = `./workorders/${fileName}.json`;
   if(!fs.existsSync(filePath)){
-    fs.mkdirSync('./data', { recursive: true });
+    fs.mkdirSync('./workorders', { recursive: true });
   }
   await writeFile(filePath, dataStr, 'utf8');
 };
@@ -32,7 +32,7 @@ router.get('/:userName', async <T> (req : Request, res : Response) => {
     data: data as T,
     code: 200,
     success: true,
-    message: 'Get user data successfully'
+    message: 'Get work order data successfully'
   });
 });
 
@@ -44,7 +44,7 @@ router.post('/:userName', async <T> (req : Request, res : Response) => {
     data: null,
     code: 200,
     success: true,
-    message: 'update user data successfully'
+    message: 'update work order data successfully'
   });
 });
 export default router;

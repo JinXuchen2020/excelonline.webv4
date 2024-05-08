@@ -15,6 +15,7 @@ import {
 } from "@univerjs/ui";
 import { IAccessor, Inject, Injector } from "@wendellhu/redi";
 import { SaveSingle } from "@univerjs/icons";
+import { saveWorkOrders } from "../utils/api";
 
 /**
  * Export Excel Button Plugin
@@ -63,7 +64,7 @@ class SaveExcelButton extends Plugin {
     const command = {
       type: CommandType.OPERATION,
       id: buttonId,
-      handler: (accessor: IAccessor) => {
+      handler: async (accessor: IAccessor) => {
         // inject univer instance service
         const univer = accessor.get(IUniverInstanceService);
         //const commandService = accessor.get(ICommandService);
@@ -71,7 +72,7 @@ class SaveExcelButton extends Plugin {
         const workbook = univer.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
 
         const data = workbook.save();
-        console.log(data);
+        await saveWorkOrders(data, "admin", "")
         return true;
       },
     };

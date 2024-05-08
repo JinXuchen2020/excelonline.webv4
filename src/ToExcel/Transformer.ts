@@ -12,21 +12,23 @@ export class Transformer {
       const columnData = currentSheet.columnData ?? {};
       const defaultColumnWidth = currentSheet.defaultColumnWidth ?? 80;
 
-      worksheet.columns = Object.keys(sheetData[0]).map(cellKey => {
-        const cell = sheetData[0][cellKey as any];
+      if(sheetData.length > 0) {        
+        worksheet.columns = Object.keys(sheetData[0]).map(cellKey => {
+          const cell = sheetData[0][cellKey as any];
 
-        const result : Partial<Excel.Column> = {
-          header: cell.v?.toString() ?? '',
-          key: cellKey,
-          width: (columnData[cellKey as any]?.w ?? defaultColumnWidth) / 8,
-          isCustomWidth: false,
-        }
+          const result : Partial<Excel.Column> = {
+            header: cell.v?.toString() ?? '',
+            key: cellKey,
+            width: (columnData[cellKey as any]?.w ?? defaultColumnWidth) / 8,
+            isCustomWidth: false,
+          }
 
-        return result
+          return result
+        });
 
-      });
+        Transformer.setStyleAndValue(sheetData, worksheet);
 
-      Transformer.setStyleAndValue(sheetData, worksheet);
+      }
     });
 
     return workbook;
