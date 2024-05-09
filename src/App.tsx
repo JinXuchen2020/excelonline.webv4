@@ -1,14 +1,19 @@
-import React, { useRef, useState } from 'react';
-import './App.css';
-import { Button, message, Image, Upload, Row, Col, Input, Space } from "antd";
-import { DEFAULT_WORKBOOK_DATA } from './assets/default-workbook-data';
-import { ExcelExport, ExcelImport, UniverSheet, UniverSheetRef }  from './components';
+import React, { useRef, useState } from "react";
+import "./App.css";
+import { Space } from "antd";
+import { DEFAULT_WORKBOOK_DATA } from "./assets/default-workbook-data";
+import {
+  ExcelExport,
+  ExcelImport,
+  UniverSheet,
+  UniverSheetRef,
+} from "./components";
 
-function App() {
+const App: React.FC = () => {
   const [data, setData] = useState(DEFAULT_WORKBOOK_DATA);
-  const univerRef = useRef<UniverSheetRef | null>(null);  
+  const univerRef = useRef<UniverSheetRef | null>(null);
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       <div className="topBar">
         <Space>
           <ExcelImport callback={setData} />
@@ -18,6 +23,6 @@ function App() {
       <UniverSheet style={{ flex: 1 }} ref={univerRef} data={data} />
     </div>
   );
-}
+};
 
 export default App;

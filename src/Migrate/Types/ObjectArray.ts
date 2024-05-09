@@ -53,7 +53,7 @@ const likeArr = (value: object): number => {
 export class ObjectArray<T> {
     private _array: ObjectArrayPrimitiveType<T>;
 
-    private _length: number;
+    private _length: number ;
 
     constructor();
     constructor(array: ObjectArrayPrimitiveType<T>);
@@ -88,6 +88,11 @@ export class ObjectArray<T> {
                 }
                 throw new Error(`create object array error ${JSON.stringify(argument[0])}`);
             }
+            default: {
+                this._array = {};
+                this._length = 0;
+                return;
+            }  
         }
     }
 

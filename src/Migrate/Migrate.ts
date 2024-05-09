@@ -324,11 +324,11 @@ export function migrate(config: any): Partial<ISpreadsheetConfig> {
               };
             }
 
-            const sMap = {
-              "0": VerticalAlign.MIDDLE,
-              "1": VerticalAlign.TOP,
-              "2": VerticalAlign.BOTTOM,
-            };
+            // const sMap = {
+            //   "0": VerticalAlign.MIDDLE,
+            //   "1": VerticalAlign.TOP,
+            //   "2": VerticalAlign.BOTTOM,
+            // };
             // const sMap = {
             //     '0': 2,
             //     '1': 1,

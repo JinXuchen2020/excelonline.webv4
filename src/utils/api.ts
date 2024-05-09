@@ -1,4 +1,4 @@
-import { IUserReqModel } from "../models/User/IUserReqModel";
+import { IUserReqModel } from "../models";
 
 // route to get logged in user's info (needs the token)
 export const getMe = (token: string) => {
@@ -31,7 +31,7 @@ export const loginUser = (input: IUserReqModel) => {
 };
 
 // save book data for a logged in user
-export const saveWorkOrders = (data: any, userName: string, token: string) => {
+export const saveWorkOrders = (data: any, userName: string, _token: string) => {
   return fetch(`/api/workorders/${userName}`, {
     method: "POST",
     headers: {

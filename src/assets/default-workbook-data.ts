@@ -13,30 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-import { BooleanNumber, IWorkbookData, LocaleType, SheetTypes } from '@univerjs/core';
+import { BooleanNumber, IWorkbookData, LocaleType } from "@univerjs/core";
 
 /**
  * Default workbook data
  * @type {IWorkbookData} document see https://univer.work/api/core/interfaces/IWorkbookData.html
  */
-export const DEFAULT_WORKBOOK_DATA : IWorkbookData = {
-  id: 'workbook-01',
+export const DEFAULT_WORKBOOK_DATA: IWorkbookData = {
+  id: "workbook-01",
   locale: LocaleType.ZH_CN,
-  name: 'universheet',
-  sheetOrder: ['sheet-01', 'sheet-02', 'sheet-03'],
-  appVersion: '3.0.0-alpha',
+  name: "universheet",
+  sheetOrder: ["sheet-01", "sheet-02", "sheet-03"],
+  appVersion: "3.0.0-alpha",
   sheets: {
-    'sheet-01': {
-      id: 'sheet-01',
+    "sheet-01": {
+      id: "sheet-01",
       cellData: {
         0: {
           0: {
-            v: 'Hello World',
+            v: "Hello World",
           },
         },
       },
-      name: 'sheet1',
-      tabColor: 'red',
+      name: "sheet1",
+      tabColor: "red",
       hidden: BooleanNumber.FALSE,
       rowCount: 1000,
       columnCount: 20,
@@ -54,19 +54,19 @@ export const DEFAULT_WORKBOOK_DATA : IWorkbookData = {
         height: 20,
         hidden: BooleanNumber.FALSE,
       },
-      selections: ['A2'],
+      selections: ["A2"],
       rightToLeft: BooleanNumber.FALSE,
     },
-    'sheet-02': {
-      id: 'sheet-02',
-      name: 'sheet2',
+    "sheet-02": {
+      id: "sheet-02",
+      name: "sheet2",
       cellData: {},
     },
-    'sheet-03': {
-      id: 'sheet-03',
-      name: 'sheet3',
+    "sheet-03": {
+      id: "sheet-03",
+      name: "sheet3",
       cellData: {},
     },
   },
-  styles: {}
+  styles: {},
 };

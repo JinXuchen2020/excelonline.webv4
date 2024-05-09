@@ -3,7 +3,7 @@ import { Environment } from "./Types/Environment";
 import { ObjectMatrix, ObjectMatrixPrimitiveType } from "./Types/ObjectMatrix";
 //import { Class, IKeyValue } from './Types';
 import { ObjectArray, ObjectArrayPrimitiveType } from "./Types/ObjectArray";
-import { IKeyValue } from "./Types/Types";
+import { Class, IKeyValue } from "./Types/Types";
 
 const rmsPrefix = /^-ms-/;
 const rDashAlpha = /-([a-z])/g;
@@ -427,7 +427,7 @@ export class Tools {
 
   static isEmptyObject(value?: any): boolean {
     // eslint-disable-next-line no-unreachable-loop
-    for (const key in value) {
+    for (const _key in value) {
       return false;
     }
     return true;
@@ -548,7 +548,7 @@ export class Tools {
   ): any[][] {
     return new Array(rows)
       .fill(value)
-      .map((item) => new Array(columns).fill(value));
+      .map((_item) => new Array(columns).fill(value));
   }
 
   /**

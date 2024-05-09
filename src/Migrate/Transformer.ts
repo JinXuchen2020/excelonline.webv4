@@ -2,7 +2,7 @@ import { HorizontalAlign, ICellData, IColorStyle, IObjectArrayPrimitiveType, ISt
 import * as Excel from 'exceljs';
 
 export class Transformer {
-  static transform(data: IWorkbookData, options?: any): Excel.Workbook {
+  static transform(data: IWorkbookData, _options?: any): Excel.Workbook {
     const workbook = new Excel.Workbook();
 
     Object.keys(data.sheets).forEach(key => {
@@ -50,14 +50,14 @@ export class Transformer {
     if (!Array.isArray(cellArr)) return;
    
     cellArr.forEach(function (row, rowid) {
-      const dbrow = worksheet.getRow(rowid+1);
+      //const dbrow = worksheet.getRow(rowid+1);
       //设置单元格行高,默认乘以1.2倍
       //dbrow.height=luckysheet.getRowHeight([rowid])[rowid]*1.2;
       Object.keys(row).every(function (cellKey, columnid) {
         const cell = row[cellKey as any];
         if (!cell) return true;
         if(rowid == 0){
-          const dobCol = worksheet.getColumn(columnid+1);
+          //const dobCol = worksheet.getColumn(columnid+1);
            //设置单元格列宽除以8
           //dobCol.width=luckysheet.getColumnWidth([columnid])[columnid]/8;
         }

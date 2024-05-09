@@ -8,9 +8,13 @@ import {
   Plugin,
   UniverInstanceType,
   Workbook,
-  sequenceExecute,
 } from "@univerjs/core";
-import { IInsertSheetCommandParams, IInsertSheetMutationParams, IRemoveSheetCommandParams, IRemoveSheetMutationParams, InsertSheetCommand, InsertSheetMutation, RemoveSheetCommand, RemoveSheetMutation, RemoveSheetUndoMutationFactory, SheetInterceptorService, getSheetCommandTarget } from "@univerjs/sheets";
+import {
+  IInsertSheetCommandParams,
+  IRemoveSheetCommandParams,
+  InsertSheetCommand,
+  RemoveSheetCommand,
+} from "@univerjs/sheets";
 import {
   ComponentManager,
   IMenuService,
@@ -20,15 +24,12 @@ import {
 } from "@univerjs/ui";
 import { IAccessor, Inject, Injector } from "@wendellhu/redi";
 import { FolderSingle } from "@univerjs/icons";
-import * as XLSX from "xlsx"
+import * as XLSX from "xlsx";
 /**
  * wait user select csv file
  */
 const waitUserSelectCSVFile = (
-  onSelect: (data: {
-    sheetName: string;
-    data : IWorksheetData;
-  }) => void
+  onSelect: (data: { sheetName: string; data: IWorksheetData }) => void
 ) => {
   const input = document.createElement("input");
   input.type = "file";
@@ -44,16 +45,17 @@ const waitUserSelectCSVFile = (
       const workbook = XLSX.read(data, { type: "array" });
 
       workbook.SheetNames.forEach((sheetName) => {
-        const sheetId = (workbook.Workbook?.Sheets![0] as any).id;
+        //const sheetId = (workbook.Workbook?.Sheets![0] as any).id;
         const text = XLSX.utils.sheet_to_csv(workbook.Sheets[sheetName]);
-        const json = XLSX.utils.sheet_to_json<IWorksheetData>(workbook.Sheets[sheetName]);
-
         const rows = text.split(/\r\n|\n/);
         const data = rows.map((line) => line.split(","));
 
-        const colsCount = data.reduce((max, row) => Math.max(max, row.length), 0);
+        const colsCount = data.reduce(
+          (max, row) => Math.max(max, row.length),
+          0
+        );
 
-        const sheetData : IWorksheetData = {
+        const sheetData: IWorksheetData = {
           id: sheetName,
           name: sheetName,
           tabColor: "",
@@ -68,11 +70,11 @@ const waitUserSelectCSVFile = (
           cellData: parseCSV2UniverData(data),
           rowHeader: {
             width: 46,
-            hidden: BooleanNumber.FALSE
+            hidden: BooleanNumber.FALSE,
           },
           columnHeader: {
             height: 20,
-            hidden: BooleanNumber.FALSE
+            hidden: BooleanNumber.FALSE,
           },
           showGridlines: BooleanNumber.TRUE,
           selections: [],
@@ -84,17 +86,15 @@ const waitUserSelectCSVFile = (
             xSplit: 0,
             ySplit: 0,
             startRow: -1,
-            startColumn: -1
-          }
-        }
-        
+            startColumn: -1,
+          },
+        };
+
         onSelect({
           sheetName,
-          data:sheetData,
+          data: sheetData,
         });
-
       });
-      
     };
     reader.readAsArrayBuffer(file);
   };
@@ -168,24 +168,31 @@ class ImportExcelPlugin extends Plugin {
         const univer = accessor.get(IUniverInstanceService);
         const commandService = accessor.get(ICommandService);
         // get current sheet
-        const workbook = univer.getCurrentUnitForType<Workbook>(UniverInstanceType.UNIVER_SHEET)!;
-
+        const workbook = univer.getCurrentUnitForType<Workbook>(
+          UniverInstanceType.UNIVER_SHEET
+        )!;
 
         // wait user select csv file
         waitUserSelectCSVFile(({ sheetName, data }) => {
-          if(workbook.checkSheetName(sheetName)) {            
+          if (workbook.checkSheetName(sheetName)) {
             const sheet = workbook.getSheetBySheetName(sheetName)!;
-            commandService.executeCommand<IRemoveSheetCommandParams>(RemoveSheetCommand.id, {
-              unitId: workbook.getUnitId(),
-              subUnitId: sheet.getSheetId(),
-            });
+            commandService.executeCommand<IRemoveSheetCommandParams>(
+              RemoveSheetCommand.id,
+              {
+                unitId: workbook.getUnitId(),
+                subUnitId: sheet.getSheetId(),
+              }
+            );
           }
 
-          commandService.executeCommand<IInsertSheetCommandParams>(InsertSheetCommand.id, {
-            unitId: workbook.getUnitId(),
-            sheet: data,
-            index: workbook.getSheetSize(),
-          });
+          commandService.executeCommand<IInsertSheetCommandParams>(
+            InsertSheetCommand.id,
+            {
+              unitId: workbook.getUnitId(),
+              sheet: data,
+              index: workbook.getSheetSize(),
+            }
+          );
         });
         return true;
       },

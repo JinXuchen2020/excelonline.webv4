@@ -15,9 +15,9 @@ export type ObjectMatrixPrimitiveType<T> = {
  @beta
  */
 export class ObjectMatrix<T> {
-    private _option: ObjectArray<ObjectArrayPrimitiveType<T>>;
+    private _option: ObjectArray<ObjectArrayPrimitiveType<T>> = new ObjectArray<ObjectArrayPrimitiveType<T>>();
 
-    private _matrix: ObjectMatrixPrimitiveType<T>;
+    private _matrix: ObjectMatrixPrimitiveType<T> = {};
 
     constructor(matrix: ObjectMatrixPrimitiveType<T> = {}) {
         this._setOriginValue(matrix);
@@ -143,7 +143,7 @@ export class ObjectMatrix<T> {
 
     spliceColumns(start: number, count: number): ObjectMatrix<T> {
         const columnData = new ObjectMatrix<T>();
-        this._option.forEach((index, value) => {
+        this._option.forEach((index, _value) => {
             for (let i = start; i < start + count; i++) {
                 columnData.setValue(index, i - start, this.getValue(index, i));
             }
@@ -169,7 +169,7 @@ export class ObjectMatrix<T> {
         this.forEach((index, value) => {
             for (let i = columnIndex; i < columnIndex + count; i++) {
                 const data = columnData.getRow(index)?.get(i - columnIndex);
-                value.insert(i, columnData.getRow(index)?.get(i - columnIndex) as T);
+                value.insert(i, data as T);
             }
         });
     }
@@ -243,7 +243,7 @@ export class ObjectMatrix<T> {
                 initRow = true;
                 startRow = rowIndex;
             }
-            row.forEach((columnIndex, column) => {
+            row.forEach((columnIndex, _column) => {
                 if (!initColumn) {
                     initColumn = true;
                     startColumn = columnIndex;
@@ -276,7 +276,7 @@ export class ObjectMatrix<T> {
             if (rowSize > endColumn) {
                 endColumn = rowSize;
             }
-            row.forEach((columnIndex, column) => {
+            row.forEach((columnIndex, _column) => {
                 if (!initColumn) {
                     initColumn = true;
                     startColumn = columnIndex;

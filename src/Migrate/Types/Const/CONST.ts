@@ -55,7 +55,7 @@ export const DEFAULT_WORKBOOK: ISpreadsheetConfig = {
     appVersion: '',
     theme: '',
     skin: '',
-    locale: LocaleType.EN,
+    locale: LocaleType.EN_US,
     creator: '',
     styles: {},
     sheets: {},
