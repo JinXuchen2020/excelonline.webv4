@@ -29,13 +29,30 @@ export const createUser = (input: IUserReqModel) => {
   });
 };
 
-export const loginUser = (input: IUserReqModel) => {
-  return fetch(getUrl("/api/users/login"), {
-    method: "POST",
+export const getQRCode = () => {
+  return fetch(getUrl("/api/wechat/qrcode"), {
+    method: "GET",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(input),
+  });
+};
+
+export const getAuthUrl = () => {
+  return fetch(getUrl("/api/wechat/authurl"), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};
+
+export const loginWechatUser = (code: string) => {
+  return fetch(getUrl(`/api/wechat/login?code=${code}`), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    }
   });
 };
 
@@ -48,5 +65,25 @@ export const saveWorkOrders = (data: any, userName: string, _token: string) => {
       // authorization: `Bearer ${token}`,
     },
     body: JSON.stringify(data),
+  });
+};
+
+export const getWorkOrders = (userName: string, _token: string) => {
+  return fetch(getUrl(`/api/workorders/${userName}`), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // authorization: `Bearer ${token}`,
+    }
+  });
+};
+
+export const getAllWorkOrders = (_token: string) => {
+  return fetch(getUrl(`/api/workorders`), {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      // authorization: `Bearer ${token}`,
+    }
   });
 };

@@ -7,9 +7,9 @@ const readFile = promisify(fs.readFile)
 const writeFile = promisify(fs.writeFile)
 
 const readJsonFile = async (fileName: string) => {
-  const path = `./workorders/${fileName}.json`;
+  let path = `./workorders/${fileName}.json`;
   if(!fs.existsSync(path)){
-    return {};
+    path = `./public/template.json`;
   }
   const data = await readFile(path, 'utf8');
   return JSON.parse(data);
@@ -23,6 +23,22 @@ const writeJsonFile = async (fileName: string, data: any) => {
   }
   await writeFile(filePath, dataStr, 'utf8');
 };
+
+router.get('/', async (req : Request, res : Response) => {
+  let result: any[] = []
+  fs.readdir('./workorders', (err, files) => {
+    files.map(async file => {
+      const data = await readFile(file, 'utf8');
+      result.push(JSON.parse(data));
+    });
+  });
+  res.json({
+    data: result,
+    code: 200,
+    success: true,
+    message: 'Get all work order data successfully'
+  });
+});
 
 /* GET users listing. */
 router.get('/:userName', async <T> (req : Request, res : Response) => {
