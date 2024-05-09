@@ -104,11 +104,6 @@ export class Transformer {
   static fillConvert ( bg: Nullable<IColorStyle>) : Excel.Fill | null {
     if (!bg) {
       return null;
-      // return {
-    // 	type: 'pattern',
-    // 	pattern: 'solid',
-    // 	fgColor:{argb:'#ffffff'.replace('#','')}
-    // }
     }
     const rgb = bg.rgb!.indexOf('rgb')>-1 ? this.rgb2hex(bg.rgb!) : bg.rgb!;
     let fill : Excel.Fill = {
@@ -121,19 +116,6 @@ export class Transformer {
 
   static fontConvert (ff: Nullable<string>, fc: Nullable<string>, bl = 0, it = 0, fs = 10, cl: ITextDecoration | undefined, ul:ITextDecoration | undefined) : Partial<Excel.Font> { // luckysheet：ff(样式), fc(颜色), bl(粗体), it(斜体), fs(大小), cl(删除线), ul(下划线)
     const luckyToExcel = {
-      0: '微软雅黑',
-      1: '宋体（Song）',
-      2: '黑体（ST Heiti）',
-      3: '楷体（ST Kaiti）',
-      4: '仿宋（ST FangSong）',
-      5: '新宋体（ST Song）',
-      6: '华文新魏',
-      7: '华文行楷',
-      8: '华文隶书',
-      9: 'Arial',
-      10: 'Times New Roman ',
-      11: 'Tahoma ',
-      12: 'Verdana',
       num2bl: function (num: number) {
         return num === 0 ? false : true
       }
