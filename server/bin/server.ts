@@ -88,3 +88,6 @@ const onListening = () => {
 
 server.on('error', onError);
 server.on('listening', onListening);
+server.on('close', () => {
+  process.exit(0);
+});
