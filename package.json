@@ -9,7 +9,9 @@
     "build": "tsc && vite build && cd server && npm run build",
     "server": "cd server && npm run dev",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@univerjs/core": "^0.1.9",
@@ -19,12 +21,17 @@
     "@univerjs/engine-formula": "^0.1.9",
     "@univerjs/engine-render": "^0.1.9",
     "@univerjs/facade": "^0.1.9",
+    "@univerjs/find-replace": "^0.1.9",
     "@univerjs/sheets": "^0.1.9",
+    "@univerjs/sheets-filter": "^0.1.9",
+    "@univerjs/sheets-filter-ui": "^0.1.9",
+    "@univerjs/sheets-find-replace": "^0.1.9",
     "@univerjs/sheets-formula": "^0.1.9",
     "@univerjs/sheets-ui": "^0.1.9",
     "@univerjs/ui": "^0.1.9",
     "antd": "^5.16.5",
     "exceljs": "^4.4.0",
+    "gh-pages": "^6.1.1",
     "luckyexcel": "^1.0.1",
     "nanoid": "^5.0.7",
     "query-string": "^9.0.0",

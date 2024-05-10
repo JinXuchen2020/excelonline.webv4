@@ -25,18 +25,19 @@ const writeJsonFile = async (fileName: string, data: any) => {
 };
 
 router.get('/', async (req : Request, res : Response) => {
-  let result: any[] = []
+  let result: any = {}
   fs.readdir('./workorders', (err, files) => {
-    files.map(async file => {
-      const data = await readFile(file, 'utf8');
-      result.push(JSON.parse(data));
+    Promise.all(files.sort().map(async file => {
+      const data = await readFile(`./workorders/${file}`, 'utf8');
+      result[file.replace('.json', '')] = JSON.parse(data);
+    })).then(() => {      
+      res.json({
+        data: result,
+        code: 200,
+        success: true,
+        message: 'Get all work order data successfully'
+      });
     });
-  });
-  res.json({
-    data: result,
-    code: 200,
-    success: true,
-    message: 'Get all work order data successfully'
   });
 });
 

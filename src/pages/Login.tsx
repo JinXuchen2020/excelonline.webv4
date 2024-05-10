@@ -1,11 +1,11 @@
 import { Col, Row } from 'antd';
-import React, { FunctionComponent, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAuthUrl, getQRCode } from '../utils/api';
 import { isWxBrowser } from '../utils';
 import { useWeChatLogin } from '../hooks';
 
-export const Login : FunctionComponent = () => {
+export const Login : React.FC = () => {
   const navigate = useNavigate();
   const [qrCodeUrl, setQrCodeUrl] = useState('');
 
